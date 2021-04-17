@@ -25,7 +25,7 @@ class App extends Component {
       prevState.isDel !== this.state.isDel
     ) {
       this.getUsers();
-      this.setState({ posted: false, isDel: false });
+      this.setState({ posted: false, isDel: false, isLoading: false });
     }
   };
   getUsers = () => {
@@ -51,7 +51,7 @@ class App extends Component {
           "Content-Type": "application/json",
         },
       });
-      this.setState({ posted: true });
+      this.setState({ posted: true, isLoading: true });
     } catch (error) {
       console.error("Ошибка:", error);
     }
@@ -61,7 +61,7 @@ class App extends Component {
       method: "DELETE",
     })
       .then(() => {
-        this.setState({ isDel: true });
+        this.setState({ isDel: true, isLoading: true });
       })
       .catch((err) => {
         console.error(err);

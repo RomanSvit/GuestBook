@@ -12,6 +12,7 @@ h2 {
 }
 
 .comments-item {
+  position: relative;
   width: 600px;
   margin: 0;
   padding: 5px 0;
@@ -23,12 +24,13 @@ h2 {
   padding-bottom: 5px;
 }
 .btn-del {
+  position: absolute;
+  left: 500px;
   cursor: pointer;
   border: 1px solid red;
   background-color: transparent;
-  margin-left: 395px;
   color: red;
 }
-.comments-item-author>b{
+.comments-item-author > b {
   margin-left: 5px;
 }
