@@ -1,0 +1,39 @@
+.container {
+  width: 1100px;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: aliceblue;
+  padding-bottom: 50px;
+}
+.main-titlle {
+  margin: 0;
+  text-align: center;
+}
+form {
+  margin: 0 auto 20px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+input {
+  width: 200px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  outline: none;
+}
+textarea {
+  height: 50px;
+  border: 1px solid black;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+.btn-post {
+  width: 200px;
+  height: 40px;
+  border: 1px solid rgb(40, 177, 22);
+  color: green;
+  background-color: transparent;
+  text-transform: uppercase;
+}

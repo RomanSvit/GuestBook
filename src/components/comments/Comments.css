@@ -1,0 +1,34 @@
+h2 {
+  text-align: center;
+}
+.comments {
+  width: 600px;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+}
+
+.comments-item {
+  width: 600px;
+  margin: 0;
+  padding: 5px 0;
+  border-bottom: 1px solid black;
+}
+.comments-item-massage {
+  margin: 0;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+}
+.btn-del {
+  cursor: pointer;
+  border: 1px solid red;
+  background-color: transparent;
+  margin-left: 395px;
+  color: red;
+}
+.comments-item-author>b{
+  margin-left: 5px;
+}
