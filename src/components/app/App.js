@@ -17,7 +17,6 @@ class App extends Component {
 
   componentDidMount = () => {
     this.setState({ isLoading: true });
-    console.log(this.state);
     this.getUsers();
   };
   componentDidUpdate = (prevProps, prevState) => {
