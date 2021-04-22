@@ -116,7 +116,7 @@ class App extends Component {
               placeholder="Your comment"
             ></textarea>
             <button className="btn-post" type="submit">
-              Add coment
+              Add comment
             </button>
           </form>
           {isLoading ? <Spinner /> : null}
