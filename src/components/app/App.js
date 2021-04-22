@@ -114,7 +114,7 @@ class App extends Component {
               name="message"
               value={message}
               onChange={this.handleChange}
-              placeholder="Coments"
+              placeholder="Your comment"
             ></textarea>
             <button className="btn-post" type="submit">
               Add coment

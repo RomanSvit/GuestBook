@@ -16,7 +16,7 @@ const Comments = ({ props , onDelete}) => {
               </b>
             </span>
             <button className="btn-del" onClick={onDelete} id={elem._id}>
-              Delete coment
+              Delete comment
             </button>
           </li>
         ))}
