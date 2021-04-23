@@ -1,7 +1,7 @@
 .container {
   position: relative;
   width: 1100px;
-  height: auto;
+  height: 100vh;
   margin: 0 auto;
   background-color: aliceblue;
   padding-bottom: 50px;
