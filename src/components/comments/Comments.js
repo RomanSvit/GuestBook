@@ -3,6 +3,7 @@ import "./Comments.css";
 import { v4 as uuidv4 } from "uuid";
 
 const Comments = ({ props , onDelete}) => {
+    // console.log(props);
   return (
     <>
       <h2>Comments</h2>

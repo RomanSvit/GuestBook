@@ -2,85 +2,78 @@ import React, { Component } from "react";
 import "./App.css";
 import Comments from "../comments/Comments";
 import Spinner from "../spiner/Spiner";
+import * as services from "../../services/api";
 
 class App extends Component {
     state = {
-        BASE_URL: "https://peaceful-chamber-89886.herokuapp.com/api",
         users: [],
-        user: "",
         message: "",
+        user: "",
         isLoading: false,
-        error: null,
-        posted: false,
-        isDel: false,
+        isDesable: true,
     };
 
     componentDidMount = () => {
         this.setState({ isLoading: true });
         this.getUsers();
     };
-    componentDidUpdate = (prevProps, prevState) => {
-        if (
-            prevState.posted !== this.state.posted ||
-            prevState.isDel !== this.state.isDel
-        ) {
-            this.setState({ isLoading: true });
-            this.getUsers();
-            this.setState({
-                posted: false,
-                isDel: false,
+    getUsers = () => {
+        services
+        .getUsersApi()
+        .then((response) => {
+            return response.json();
+        })
+            .then((data) => {
+                this.setState({ users: [...data] });
+                this.setState({ isLoading: false });
+            })
+            .catch((error) => {
+                throw new Error(error);
             });
-        }
-    };
-    getUsers = async () => {
-        try {
-            await fetch(`${this.state.BASE_URL}/comments`)
-                .then((response) => {
-                    return response.json();
-                })
-                .then((data) => {
-                    this.setState({ users: [...data] });
-                    this.setState({ isLoading: false });
-                });
-        } catch (error) {
-            throw new Error(error);
-        }
-    };
-    addPost = async (data) => {
-        try {
-            await fetch(`${this.state.BASE_URL}/addComment`, {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: {
-                    "Content-Type": "application/json",
-                },
+        };
+        
+        addPost = (data) => {
+            services
+            .addPostApi(data)
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) =>
+            this.setState((prevState) => ({
+                users: [...prevState.users, data],
+                isLoading: false,
+                }))
+                )
+                .catch((error) => {
+                console.error("Ошибка:", error);
             });
-            this.setState({ posted: true, isLoading: false });
-        } catch (error) {
-            console.error("Ошибка:", error);
-        }
     };
     remove = (id) => {
-        fetch(`${this.state.BASE_URL}/comments/${id}`, {
-            method: "DELETE",
-        })
-            .then(() => {
-                this.setState({ isDel: true, isLoading: false });
-            })
-            .catch((err) => {
-                console.error(err);
+        services
+        .removeComentApi(id)
+        .then(() => {
+            this.setState({
+                isLoading: false,
             });
+        })
+        .catch((err) => {
+            console.error(err);
+        });
     };
     handleChange = (e) => {
         const { name, value } = e.target;
+        if (this.state.message === "" || this.state.user === "") {
+            alert("Fill empty fields, please.");
+        }
         this.setState({
             [name]: value,
         });
     };
     handleSubmit = (e) => {
         e.preventDefault();
+        let data;
         const { user, message } = this.state;
-        const data = {
+        data = {
             name: user,
             message,
         };
@@ -90,14 +83,15 @@ class App extends Component {
     };
     reset = () => {
         this.setState({
-            ...this.state,
             user: "",
             message: "",
         });
     };
     handleClickDelete = (e) => {
         const { id } = e.target;
-        this.setState({ isLoading: true });
+        let arr = this.state.users;
+        let newUsers = arr.filter((elem) => elem._id !== id);
+        this.setState({ users: [...newUsers], isLoading: true });
         this.remove(id);
     };
     render() {
@@ -113,15 +107,18 @@ class App extends Component {
                             value={user}
                             onChange={this.handleChange}
                             placeholder="Your name"
-                        />
+                            />
                         <textarea
                             type="text"
                             name="message"
                             value={message}
                             onChange={this.handleChange}
                             placeholder="Your comment"
-                        ></textarea>
-                        <button className="btn-post" type="submit">
+                            ></textarea>
+                        <button
+                            className="btn-post"
+                            type="submit"
+                            >
                             Add comment
                         </button>
                     </form>

@@ -49,3 +49,8 @@ h2 {
 .comments-item-author > b {
     margin-left: 5px;
 }
+.btn-del:hover{
+    transition: .6s;
+    background-color: rgb(238, 78, 78);
+    color: rgb(209, 229, 248);
+}
