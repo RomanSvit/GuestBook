@@ -10,7 +10,6 @@ class App extends Component {
         message: "",
         user: "",
         isLoading: false,
-        isDesable: true,
     };
 
     componentDidMount = () => {
@@ -19,10 +18,10 @@ class App extends Component {
     };
     getUsers = () => {
         services
-        .getUsersApi()
-        .then((response) => {
-            return response.json();
-        })
+            .getUsersApi()
+            .then((response) => {
+                return response.json();
+            })
             .then((data) => {
                 this.setState({ users: [...data] });
                 this.setState({ isLoading: false });
@@ -30,41 +29,38 @@ class App extends Component {
             .catch((error) => {
                 throw new Error(error);
             });
-        };
-        
-        addPost = (data) => {
-            services
+    };
+
+    addPost = (data) => {
+        services
             .addPostApi(data)
             .then((res) => {
                 return res.json();
             })
             .then((data) =>
-            this.setState((prevState) => ({
-                users: [...prevState.users, data],
-                isLoading: false,
+                this.setState((prevState) => ({
+                    users: [...prevState.users, data],
+                    isLoading: false,
                 }))
-                )
-                .catch((error) => {
+            )
+            .catch((error) => {
                 console.error("Ошибка:", error);
             });
     };
     remove = (id) => {
         services
-        .removeComentApi(id)
-        .then(() => {
-            this.setState({
-                isLoading: false,
+            .removeComentApi(id)
+            .then(() => {
+                this.setState({
+                    isLoading: false,
+                });
+            })
+            .catch((err) => {
+                console.error(err);
             });
-        })
-        .catch((err) => {
-            console.error(err);
-        });
     };
     handleChange = (e) => {
         const { name, value } = e.target;
-        if (this.state.message === "" || this.state.user === "") {
-            alert("Fill empty fields, please.");
-        }
         this.setState({
             [name]: value,
         });
@@ -73,13 +69,17 @@ class App extends Component {
         e.preventDefault();
         let data;
         const { user, message } = this.state;
-        data = {
-            name: user,
-            message,
-        };
-        this.setState({ isLoading: true });
-        this.addPost(data);
-        this.reset();
+        if (this.state.message === "" || this.state.user === "") {
+            alert("Fill empty fields, please.");
+        } else {
+            data = {
+                name: user,
+                message,
+            };
+            this.setState({ isLoading: true });
+            this.addPost(data);
+            this.reset();
+        }
     };
     reset = () => {
         this.setState({
@@ -107,18 +107,15 @@ class App extends Component {
                             value={user}
                             onChange={this.handleChange}
                             placeholder="Your name"
-                            />
+                        />
                         <textarea
                             type="text"
                             name="message"
                             value={message}
                             onChange={this.handleChange}
                             placeholder="Your comment"
-                            ></textarea>
-                        <button
-                            className="btn-post"
-                            type="submit"
-                            >
+                        ></textarea>
+                        <button className="btn-post" type="submit">
                             Add comment
                         </button>
                     </form>

@@ -3,7 +3,7 @@
     width: 1100px;
     min-height: 100vh;
     margin: 0 auto;
-    background-color: #90a4ae;
+    background-color: #cbdce4;
     padding-bottom: 50px;
 }
 .main-titlle {
@@ -43,7 +43,7 @@ textarea {
     text-transform: uppercase;
 }
 .btn-post:hover {
-    transition: .6s;
+    transition: 0.6s;
     background-color: green;
     color: #bcccd4;
 }
